@@ -1,7 +1,6 @@
 {
     "name": "milanzor/c3i",
     "description": "c3i",
-    "homepage": "https://cakephp.org",
     "type": "project",
     "license": "MIT",
     "require": {
@@ -32,7 +31,10 @@
     },
     "scripts": {
         "post-install-cmd": "App\\Console\\Installer::postInstall",
-        "post-create-project-cmd": "App\\Console\\Installer::postInstall",
+        "post-create-project-cmd": [
+            "App\\Console\\Installer::postInstall",
+            "yarn install && yarn build"
+        ],
         "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump",
         "check": [
             "@test",
@@ -44,6 +46,7 @@
     },
     "prefer-stable": true,
     "config": {
+        "process-timeout": 0,
         "sort-packages": true
     }
 }
