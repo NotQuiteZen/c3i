@@ -33,7 +33,7 @@
         "post-install-cmd": "App\\Console\\Installer::postInstall",
         "post-create-project-cmd": [
             "App\\Console\\Installer::postInstall",
-            "yarn install && yarn build"
+            "echo Installing frontend-dependencies, this may take a while... && yarn install --silent && yarn build --silent"
         ],
         "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump",
         "check": [
