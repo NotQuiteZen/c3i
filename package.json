@@ -4,6 +4,7 @@
     "license": "MIT",
     "scripts": {
         "build": "webpack --progress",
+        "build:no-progress": "webpack",
         "build:dev": "yarn build --env.env=dev",
         "build:prod": "yarn build --env.env=prod",
         "watch": "yarn build --watch",

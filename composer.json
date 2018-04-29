@@ -30,10 +30,13 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "App\\Console\\Installer::postInstall",
         "post-create-project-cmd": [
             "App\\Console\\Installer::postInstall",
-            "echo Installing frontend-dependencies, this may take a while... && yarn install --silent && yarn build --silent"
+            "App\\Console\\C3I::logo",
+            "App\\Console\\C3I::setupDatabase",
+            "App\\Console\\C3I::databaseSessions",
+            "App\\Console\\C3I::notifyYarnTime",
+            "yarn install --silent && yarn build:no-progress"
         ],
         "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump",
         "check": [
