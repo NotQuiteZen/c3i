@@ -21,6 +21,11 @@ module.exports = (env) => {
 
     return {
 
+        // Watchoptions
+        watchOptions: {
+            poll: true,
+        },
+
         // Devtool
         devtool: env.env === 'dev' ? 'eval-source-map' : 'source-map',
 
@@ -52,7 +57,12 @@ module.exports = (env) => {
                     test: /\.scss$|.css$/,
                     use: [
                         MiniCssExtractPlugin.loader,
-                        "css-loader",
+                        {
+                            loader: "css-loader",
+                            options: {
+                                minimize: env.env !== 'dev',
+                            },
+                        },
                         "sass-loader",
                     ]
                 },
