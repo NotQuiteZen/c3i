@@ -42,6 +42,10 @@ class ToastHelper extends Helper {
         # Read and delete the toast session
         $toasts = $this->request->getSession()->consume($this->getConfig('session_key'));
 
+        if ( ! $toasts) {
+            $toasts = [];
+        }
+
         foreach ($toasts as &$toast) {
             $toast['html'] = $this->_button($toast);
         }
