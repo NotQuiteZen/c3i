@@ -32,10 +32,10 @@
         "webpack-watched-glob-entries-plugin": "^2.1.2"
     },
     "dependencies": {
+        "daemonite-material": "^4.1.0",
         "jquery": "^3.3.1",
         "lodash-es": "^4.17.8",
         "material-design-icons-iconfont-only": "^3.0.1",
-        "materialize-css": "1.0.0-beta",
         "roboto-fontface": "^0.9.0",
         "stein": "^1.0.5"
     }
