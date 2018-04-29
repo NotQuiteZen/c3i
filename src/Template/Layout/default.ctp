@@ -33,7 +33,7 @@
     echo $this->JsConfig->getObject();
     ?>
 </head>
-<body>
+<body class="bg-dark-2">
 <?php
 
 # Content

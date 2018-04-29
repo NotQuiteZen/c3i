@@ -21,10 +21,10 @@ module.exports = (env) => {
 
     return {
 
-        // Watchoptions
-        watchOptions: {
-            poll: true,
-        },
+        // Watchoptions, enable this for running in vagrant
+        // watchOptions: {
+        //     poll: true,
+        // },
 
         // Devtool
         devtool: env.env === 'dev' ? 'eval-source-map' : 'source-map',
