@@ -28,7 +28,7 @@
                 echo $this->Form->control('test', [
                     'label' => 'Email address',
                     'placeholder' => 'Enter email',
-                    //'help' => 'We\'ll never share your email with anyone else.',
+                    'help' => 'We\'ll never share your email with anyone else.',
                 ]);
                 ?>
             </div>
