@@ -3,12 +3,13 @@
 namespace App\Controller\Component;
 
 use Cake\Controller\Component;
-use Cake\Controller\ComponentRegistry;
 
 /**
- * Toast component
+ * Class SnackbarComponent
+ *
+ * @package App\Controller\Component
  */
-class ToastComponent extends Component {
+class SnackbarComponent extends Component {
 
     /**
      * Default configuration.
@@ -16,100 +17,96 @@ class ToastComponent extends Component {
      * @var array
      */
     protected $_defaultConfig = [
-        'session_key' => 'Toast',
+        'session_key' => 'Snackbars',
     ];
 
+    /**
+     * @var \Cake\Controller\Controller
+     */
+    public $controller;
+
+    /**
+     * @var \Cake\Http\Session
+     */
+    public $session;
 
     public function initialize(array $config) {
         parent::initialize($config);
         $this->controller = $this->_registry->getController();
         $this->session = $this->controller->getRequest()->getSession();
-
     }
 
     /**
-     * Set a toast message and redirect
-     *
      * @param       $message
      * @param       $url
      * @param array $options
-     *
-     * @return CakeResponse|bool
      */
     public function redirect($message, $url, $options = []) {
         $options['redirect'] = $url;
 
-        return $this->add($message, $options);
+        $this->add($message, $options);
     }
 
     /**
-     * Set a toast message
-     *
      * @param       $message
      * @param array $options
-     *
-     * @return CakeResponse|bool
      */
     public function add($message, $options = []) {
 
-        $toast = [
+        $snackbar = [
             'html' => $message,
-            'displayLength' => $this->_getOption($options, 'displayLength') ?: 4000,
-            'inDuration' => $this->_getOption($options, 'inDuration') ?: 300,
-            'outDuration' => $this->_getOption($options, 'outDuration') ?: 375,
-            'completeCallback' => $this->_getOption($options, 'completeCallback') ?: null,
-            'activationPercent' => $this->_getOption($options, 'activationPercent') ?: 0.8,
+            'align' => $this->_getOption($options, 'align') ?: 'center',
+            'timeout' => $this->_getOption($options, 'timeout') ?: 4000,
             'button' => $this->_getOption($options, 'button') ?: null,
         ];
 
         $class = explode(' ', $this->_getOption($options, 'class', ''));
 
-        # Check if we dont want the toast to timeout
+        # Check if we dont want the snackbar to timeout
         $noTimeout = $this->_getOption($options, 'no-timeout', false);
         if ($noTimeout) {
-            $toast['displayLength'] = 'Infinity';
+            $snackbar['timeout'] = 'Infinity';
         }
 
-        # Toast color
+        # Snackbar color
         $color = $this->_getOption($options, 'color');
         if ($color) {
-            $class[] = $color;
+            $class[] = 'bg-' . $color;
         }
 
-        # Toast text color
+        # Snackbar text color
         $textColor = $this->_getOption($options, 'text-color');
         if ($textColor) {
             $class[] = $textColor . '-text';
         }
 
-        $toast['classes'] = trim(implode(' ', $class));
+        # Get classes
+        $snackbar['classes'] = trim(implode(' ', $class));
 
         # Get redirect option
         $redirect = $this->_getOption($options, 'redirect');
 
         # Get the session key
         $session_key = $this->getConfig('session_key');
-        
-        # Fetch previously set toasts
-        $toasts = $this->session->read($session_key);
 
-        # If we don't have any, make the toasts an empty array
-        if ( ! $toasts) {
-            $toasts = [];
+        # Fetch previously set snackbars
+        $snackbars = $this->session->read($session_key);
+
+        # If we don't have any, make the snackbars an empty array
+        if ( ! $snackbars) {
+            $snackbars = [];
         }
 
         # Append the new message
-        $toasts[] = $toast;
+        $snackbars[] = $snackbar;
 
         # Write back to the session
-        $write_success = $this->session->write($session_key, $toasts);
+        $this->session->write($session_key, $snackbars);
 
         # Redirect
         if ($redirect) {
-            return $this->Controller->redirect($redirect);
+            $this->controller->redirect($redirect);
         }
-
-        return $write_success;
     }
 
     private function _getOption(&$options, $name, $default = null, $unset = true) {
@@ -118,6 +115,7 @@ class ToastComponent extends Component {
 
             return $default;
         }
+
         # Option is array key
         if (array_key_exists($name, $options)) {
             $value = $options[$name];
@@ -127,6 +125,7 @@ class ToastComponent extends Component {
 
             return $value;
         }
+
         # Option is array value, with a numeric key
         $key = array_search($name, $options, true);
         if (is_numeric($key)) {

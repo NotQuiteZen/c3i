@@ -1,9 +1,11 @@
 // Get DefaultModule
 import { DefaultModule } from 'stein';
-import { Config } from 'Lib/Config';
-import {each} from 'lodash-es';
-
+import { Config } from '../Lib/Config';
+import * as Material from 'daemonite-material/js/material';
+import { each } from 'lodash-es';
 import '../scss/app.scss';
+
+import Snackbar from '../Components/Snackbar';
 
 /**
  *
@@ -20,15 +22,15 @@ export class Bootstrap extends DefaultModule {
         // on DOMContentLoaded, publish DOMReady
         document.addEventListener('DOMContentLoaded', () => this.publish('DOMReady'));
 
-        let toasts = Config.get('App.toasts');
-        if (toasts) {
-            this.renderToasts(toasts);
+        let snackbars = Config.get('App.snackbars');
+        if (snackbars) {
+            this.renderSnackbars(snackbars);
         }
     }
 
-    renderToasts(toasts) {
-        each(toasts, (toast) => {
-            console.log('Toast:', toast);
+    renderSnackbars(snackbars) {
+        each(snackbars, (snackbar) => {
+            Snackbar.render(snackbar);
         });
     }
 

@@ -24,7 +24,7 @@
 
     # Set some JsConfigs
     $this->JsConfig->set([
-        'toasts' => $this->Toast->render('array'),
+        'snackbars' => $this->Snackbar->render('array'),
         'controller' => $this->request->getParam('controller'),
         'action' => $this->request->getParam('action'),
     ], 'App');
@@ -46,6 +46,7 @@ echo $this->Html->tag(
 # JS Core
 echo $this->Html->script('commons');
 echo $this->JsLoader->getViewScript();
+
 ?>
 </body>
 </html>

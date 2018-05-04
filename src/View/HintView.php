@@ -1,9 +1,5 @@
 <?php
 
-use App\View\Helper\HtmlHelper;
-use App\View\Helper\JsConfigHelper;
-use App\View\Helper\JsLoaderHelper;
-use App\View\Helper\ToastHelper;
 use Cake\View\View;
 
 /**
@@ -11,18 +7,19 @@ use Cake\View\View;
  * Define custom helper properties here
  *
  * Helpers
- * @property ToastHelper    $Toast
- * @property JsLoaderHelper $JsLoader
- * @property JsConfigHelper $JsConfig
- * @property HtmlHelper     $Html
+ * @property \App\View\Helper\SnackbarHelper $Snackbar
+ * @property \App\View\Helper\JsLoaderHelper $JsLoader
+ * @property \App\View\Helper\JsConfigHelper $JsConfig
+ * @property \App\View\Helper\HtmlHelper     $Html
+ * @property \App\View\Helper\FormHelper     $Form
  *
- * @property object         $params
- * @property string         $here
- * @property array          $data
+ * @property object                          $params
+ * @property string                          $here
+ * @property array                           $data
  *
- * @property string         $plugin
- * @property string         $action
- * @property string         $webroot
+ * @property string                          $plugin
+ * @property string                          $action
+ * @property string                          $webroot
  */
 class HintView extends View {
 

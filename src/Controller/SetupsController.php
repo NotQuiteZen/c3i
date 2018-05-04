@@ -21,7 +21,11 @@ class SetupsController extends AppController {
             throw new NotFoundException();
         }
 
-        $this->Toast->add('Welcome to c3i!', ['no-timeout', 'color' => 'green']);
+        $this->Snackbar->add('Welcome to c3i!', ['no-timeout', 'button' => ['url' => ['controller' => 'Setups', 'action' => 'index'], 'text' => 'Woop']]);
+
+    }
+
+    public function forms() {
 
     }
 
