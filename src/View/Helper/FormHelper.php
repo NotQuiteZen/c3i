@@ -38,7 +38,7 @@ class FormHelper extends Helper\FormHelper {
             'formEnd' => '</form>',
             'formGroup' => '{{label}}{{prepend}}{{input}}{{append}}',
             'formGroupHorizontal' => '{{label}}<div class="{{inputColumnClass}}">{{prepend}}{{input}}{{append}}</div>',
-            'help' => '<small class="form-text text-muted">{{content}}</small>',
+            'help' => '<small id="{{id}}" class="form-text text-muted">{{content}}</small>',
             'hiddenBlock' => '<div style="display:none;">{{content}}</div>',
             'input' => '<input type="{{type}}" name="{{name}}" class="form-control{{attrs.class}}" {{attrs}} />',
             'inputSubmit' => '<input type="{{type}}"{{attrs}}>',
@@ -145,9 +145,17 @@ class FormHelper extends Helper\FormHelper {
             unset($options['error']);
         }
 
-        $help = $options['help'];
-        if ($help) {
-            $help = $this->formatTemplate('help', ['content' => $help]);
+        $help = null;
+        if ($options['help']) {
+            if (is_array($options['help'])) {
+                $help = $this->help($fieldName, $options['help'], $options['help']);
+            } else {
+                $help = $this->help($fieldName, $options['help']);
+            }
+            if ($help) {
+                $options['aria-describedby'] = $this->_domId($fieldName . '-help');
+            }
+            unset($options['help']);
         }
 
         $label = $options['label'];
@@ -195,6 +203,30 @@ class FormHelper extends Helper\FormHelper {
         }
 
         return $result;
+    }
+
+    public function help($field, $text = null, array $options = []) {
+
+        if (is_array($text)) {
+            $text = $options['text'];
+            unset($options['text']);
+        }
+
+        $options += ['id' => null, 'escape' => true];
+
+        if ($options['id'] === null) {
+            $options['id'] = $this->_domId($field . '-help');
+        }
+
+        if ($options['escape']) {
+            $text = h($text);
+        }
+
+        return $this->formatTemplate('help', [
+            'id' => $options['id'],
+            'content' => $text,
+        ]);
+
     }
 
     /**
