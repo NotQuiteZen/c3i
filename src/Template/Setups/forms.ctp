@@ -40,6 +40,13 @@
                 echo $this->Form->control('checkbox', [
                     'type' => 'checkbox',
                     'label' => 'Check me out',
+                    'checked',
+                ]);
+
+                echo $this->Form->control('radio', [
+                    'type' => 'radio',
+                    'options' => ['Radio option 1', 'Radio option 2'],
+                    'default' => 0,
                 ]);
 
                 echo $this->Form->submit('Submit');

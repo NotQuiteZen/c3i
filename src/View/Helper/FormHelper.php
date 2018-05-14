@@ -26,7 +26,6 @@ class FormHelper extends Helper\FormHelper {
             'checkboxFormGroup' => '{{input}}{{label}}',
             'checkboxWrapper' => '<div class="custom-control custom-checkbox">{{label}}</div>',
             'checkboxContainer' => '<div class="form-group custom-control custom-checkbox {{required}}">{{content}}</div>',
-            'checkboxContainerHorizontal' => '<div class="form-group"><div class="{{inputColumnOffsetClass}} {{inputColumnClass}}"><div class="checkbox {{required}}">{{content}}</div></div></div>',
             'dateWidget' => '<div class="row">{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}{{meridian}}</div>',
             'error' => '<span class="help-block error-message">{{content}}</span>',
             'errorHorizontal' => '<span class="help-block error-message {{errorColumnClass}}">{{content}}</span>',
@@ -47,19 +46,16 @@ class FormHelper extends Helper\FormHelper {
             'label' => '<label {{attrs}}>{{text}}</label>',
             'labelHorizontal' => '<label class="control-label {{labelColumnClass}}{{attrs.class}}"{{attrs}}>{{text}}</label>',
             'labelInline' => '<label class="sr-only{{attrs.class}}"{{attrs}}>{{text}}</label>',
-            'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>',
+            'nestingLabel' => '{{input}}<label class="custom-control-label{{attrs.class}}"{{attrs}}>{{text}}</label>',
             'legend' => '<legend>{{text}}</legend>',
             'option' => '<option value="{{value}}"{{attrs}}>{{text}}</option>',
             'optgroup' => '<optgroup label="{{label}}"{{attrs}}>{{content}}</optgroup>',
             'select' => '<select name="{{name}}" class="form-control{{attrs.class}}" {{attrs}}>{{content}}</select>',
             'selectColumn' => '<div class="col-md-{{columnSize}}"><select name="{{name}}" class="form-control{{attrs.class}}" {{attrs}}>{{content}}</select></div>',
             'selectMultiple' => '<select name="{{name}}[]" multiple="multiple" class="form-control{{attrs.class}}" {{attrs}}>{{content}}</select>',
-            'radio' => '<input type="radio" name="{{name}}" value="{{value}}"{{attrs}}>',
-            'radioWrapper' => '<div class="radio">{{label}}</div>',
+            'radio' => '<input type="radio" name="{{name}}" value="{{value}}" class="custom-control-input{{attrs.class}}"{{attrs}}>',
+            'radioWrapper' => '<div class="custom-control custom-radio">{{label}}</div>',
             'radioContainer' => '<div class="form-group">{{content}}</div>',
-            'inlineRadio' => '<input type="radio" name="{{name}}" value="{{value}}"{{attrs}}>',
-            'inlineRadioWrapper' => '{{label}}',
-            'inlineRadioNestingLabel' => '{{hidden}}<label{{attrs}} class="radio-inline">{{input}}{{text}}</label>',
             'textarea' => '<textarea name="{{name}}" class="form-control{{attrs.class}}" {{attrs}}>{{value}}</textarea>',
             'submitContainer' => '<div class="form-group">{{submitContainerHorizontalStart}}{{content}}{{submitContainerHorizontalEnd}}</div>',
             'submitContainerHorizontal' => '<div class="form-group"><div class="{{inputColumnOffsetClass}} {{inputColumnClass}}">{{content}}</div></div>',
@@ -181,16 +177,15 @@ class FormHelper extends Helper\FormHelper {
         if ($options['type'] === 'checkbox') {
             $label = $this->addClass($label, 'custom-control-label');
         }
+        if ($options['type'] === 'radio') {
+            $label = false;
+        }
 
         $labelOptions = $options['labelOptions'];
         unset($options['labelOptions']);
 
         $nestedInput = isset($options['nestedInput']) ? $options['nestedInput'] : false;
         unset($options['nestedInput']);
-
-        if ($nestedInput === true && $options['type'] === 'checkbox' && ! array_key_exists('hiddenField', $options) && $label !== false) {
-            $options['hiddenField'] = '_split';
-        }
 
         $input = $this->_getInput($fieldName, $options + ['labelOptions' => $labelOptions]);
         if ($options['type'] === 'hidden' || $options['type'] === 'submit') {
