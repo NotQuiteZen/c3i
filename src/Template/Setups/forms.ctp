@@ -37,6 +37,13 @@
                     'placeholder' => 'Password',
                 ]);
 
+                echo $this->Form->control('checkbox', [
+                    'type' => 'checkbox',
+                    'label' => 'Check me out',
+                ]);
+
+                echo $this->Form->submit('Submit');
+
                 ?>
             </div>
         </div>

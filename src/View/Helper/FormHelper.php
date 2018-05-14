@@ -22,10 +22,10 @@ class FormHelper extends Helper\FormHelper {
         ],
         'templates' => [
             'button' => '<button{{attrs}}>{{text}}</button>',
-            'checkbox' => '<input type="checkbox" name="{{name}}" value="{{value}}"{{attrs}}>',
-            'checkboxFormGroup' => '{{label}}',
-            'checkboxWrapper' => '<div class="checkbox">{{label}}</div>',
-            'checkboxContainer' => '<div class="checkbox {{required}}">{{content}}</div>',
+            'checkbox' => '<input type="checkbox" name="{{name}}" value="{{value}}" class="form-check-input{{attrs.class}}"{{attrs}}>',
+            'checkboxFormGroup' => '{{input}}{{label}}',
+            'checkboxWrapper' => '<div class="form-group form-check">{{label}}</div>',
+            'checkboxContainer' => '<div class="form-group form-check {{required}}">{{content}}</div>',
             'checkboxContainerHorizontal' => '<div class="form-group"><div class="{{inputColumnOffsetClass}} {{inputColumnClass}}"><div class="checkbox {{required}}">{{content}}</div></div></div>',
             'dateWidget' => '<div class="row">{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}{{meridian}}</div>',
             'error' => '<span class="help-block error-message">{{content}}</span>',
@@ -40,11 +40,11 @@ class FormHelper extends Helper\FormHelper {
             'formGroupHorizontal' => '{{label}}<div class="{{inputColumnClass}}">{{prepend}}{{input}}{{append}}</div>',
             'help' => '<small id="{{id}}" class="form-text text-muted">{{content}}</small>',
             'hiddenBlock' => '<div style="display:none;">{{content}}</div>',
-            'input' => '<input type="{{type}}" name="{{name}}" class="form-control{{attrs.class}}" {{attrs}} />',
-            'inputSubmit' => '<input type="{{type}}"{{attrs}}>',
+            'input' => '<input type="{{type}}" name="{{name}}" class="form-control{{attrs.class}}" {{attrs}}>',
+            'inputSubmit' => '<input type="{{type}}" class="btn btn-primary{{attrs.class}}"{{attrs}}>',
             'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}{{help}}</div>',
             'inputContainerError' => '<div class="form-group has-error {{type}}{{required}}">{{content}}{{help}}{{error}}</div>',
-            'label' => '<label class="control-label{{attrs.class}}"{{attrs}}>{{text}}</label>',
+            'label' => '<label {{attrs}}>{{text}}</label>',
             'labelHorizontal' => '<label class="control-label {{labelColumnClass}}{{attrs.class}}"{{attrs}}>{{text}}</label>',
             'labelInline' => '<label class="sr-only{{attrs.class}}"{{attrs}}>{{text}}</label>',
             'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>',
@@ -74,6 +74,15 @@ class FormHelper extends Helper\FormHelper {
             'fancyFileInput' => '{{fileInput}}<div class="input-group"><div class="input-group-btn">{{button}}</div>{{input}}</div>',
         ],
     ];
+
+    public function create($context = null, array $options = []) {
+
+        if ( ! array_key_exists('novalidate', $options)) {
+            $options['novalidate'] = true;
+        }
+
+        return parent::create($context, $options);
+    }
 
     /**
      * Generates a form control element complete with label and wrapper div.
@@ -164,11 +173,7 @@ class FormHelper extends Helper\FormHelper {
         $labelOptions = $options['labelOptions'];
         unset($options['labelOptions']);
 
-        $nestedInput = false;
-        if ($options['type'] === 'checkbox') {
-            $nestedInput = true;
-        }
-        $nestedInput = isset($options['nestedInput']) ? $options['nestedInput'] : $nestedInput;
+        $nestedInput = isset($options['nestedInput']) ? $options['nestedInput'] : false;
         unset($options['nestedInput']);
 
         if ($nestedInput === true && $options['type'] === 'checkbox' && ! array_key_exists('hiddenField', $options) && $label !== false) {
