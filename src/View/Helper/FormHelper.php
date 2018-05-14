@@ -22,10 +22,10 @@ class FormHelper extends Helper\FormHelper {
         ],
         'templates' => [
             'button' => '<button{{attrs}}>{{text}}</button>',
-            'checkbox' => '<input type="checkbox" name="{{name}}" value="{{value}}" class="form-check-input{{attrs.class}}"{{attrs}}>',
+            'checkbox' => '<input type="checkbox" name="{{name}}" value="{{value}}" class="custom-control-input{{attrs.class}}"{{attrs}}>',
             'checkboxFormGroup' => '{{input}}{{label}}',
-            'checkboxWrapper' => '<div class="form-group form-check">{{label}}</div>',
-            'checkboxContainer' => '<div class="form-group form-check {{required}}">{{content}}</div>',
+            'checkboxWrapper' => '<div class="custom-control custom-checkbox">{{label}}</div>',
+            'checkboxContainer' => '<div class="form-group custom-control custom-checkbox {{required}}">{{content}}</div>',
             'checkboxContainerHorizontal' => '<div class="form-group"><div class="{{inputColumnOffsetClass}} {{inputColumnClass}}"><div class="checkbox {{required}}">{{content}}</div></div></div>',
             'dateWidget' => '<div class="row">{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}{{meridian}}</div>',
             'error' => '<span class="help-block error-message">{{content}}</span>',
@@ -168,7 +168,16 @@ class FormHelper extends Helper\FormHelper {
         }
 
         $label = $options['label'];
+        if ( ! is_array($label)) {
+            $label = [
+                'label' => $label,
+            ];
+        }
         unset($options['label']);
+
+        if ($options['type'] === 'checkbox') {
+            $label = $this->addClass($label, 'custom-control-label');
+        }
 
         $labelOptions = $options['labelOptions'];
         unset($options['labelOptions']);
