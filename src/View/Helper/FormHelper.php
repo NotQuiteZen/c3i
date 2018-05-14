@@ -150,6 +150,7 @@ class FormHelper extends Helper\FormHelper {
             unset($options['error']);
         }
 
+        # Allow for help texts
         $help = null;
         if ($options['help']) {
             if (is_array($options['help'])) {
@@ -164,21 +165,29 @@ class FormHelper extends Helper\FormHelper {
         }
 
         $label = $options['label'];
-        if ( ! is_array($label)) {
-            $labelText = $label;
-            $label = [];
-            if ($labelText) {
-                $label['text'] = $labelText;
-            }
-
-        }
         unset($options['label']);
 
-        if ($options['type'] === 'checkbox') {
-            $label = $this->addClass($label, 'custom-control-label');
-        }
-        if ($options['type'] === 'radio') {
-            $label = false;
+        if ($label !== false) {
+
+            # Make sure $label is an array
+            if ( ! is_array($label)) {
+                $labelText = $label;
+                $label = [];
+                if ($labelText) {
+                    $label['text'] = $labelText;
+                }
+            }
+
+            # Add label class for checkbox
+            # TODO: Find a better way, can't figure out how to use the template right now
+            if ($options['type'] === 'checkbox') {
+                $label = $this->addClass($label, 'custom-control-label');
+            }
+
+            # Disable label for radio's
+            if ($options['type'] === 'radio') {
+                $label = false;
+            }
         }
 
         $labelOptions = $options['labelOptions'];
