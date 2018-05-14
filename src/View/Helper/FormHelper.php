@@ -169,9 +169,12 @@ class FormHelper extends Helper\FormHelper {
 
         $label = $options['label'];
         if ( ! is_array($label)) {
-            $label = [
-                'label' => $label,
-            ];
+            $labelText = $label;
+            $label = [];
+            if ($labelText) {
+                $label['text'] = $labelText;
+            }
+
         }
         unset($options['label']);
 
