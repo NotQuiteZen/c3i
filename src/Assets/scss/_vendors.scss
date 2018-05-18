@@ -1,7 +1,26 @@
+
+// Get material colors so we can use them in our scheme
+@import '~daemonite-material/assets/scss/colors';
+
+// Color scheme
+$primary: (
+        color: $material-color-pink-500,
+        dark:  $material-color-pink-700,
+        light: $material-color-pink-100
+);
+
+$secondary: (
+        color: $material-color-pink-a200,
+        dark:  $material-color-pink-a400,
+        light: $material-color-pink-a100
+);
+
 // Material bootstrap
 @import '~daemonite-material/assets/scss/material';
+
 // Material icons
 @import "~material-design-icons-iconfont-only/iconfont/material-icons.css";
+
 // Roboto
 $roboto-font-path: "~roboto-fontface/fonts";
 @import "~roboto-fontface/css/roboto/sass/roboto-fontface";
