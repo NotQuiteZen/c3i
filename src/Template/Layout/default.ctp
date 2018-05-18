@@ -7,7 +7,7 @@
 <head>
     <?=$this->Html->charset()?>
     <title><?=(empty($pagetitle) ? '' : $pagetitle . ' | ') . 'App'?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1, shrink-to-fit=no, width=device-width">
     <?php
 
     # Meta
