@@ -55,7 +55,6 @@ class SnackbarComponent extends Component {
 
         $snackbar = [
             'html' => $message,
-            'align' => $this->_getOption($options, 'align') ?: 'center',
             'timeout' => $this->_getOption($options, 'timeout') ?: 4000,
             'button' => $this->_getOption($options, 'button') ?: null,
         ];
@@ -78,6 +77,18 @@ class SnackbarComponent extends Component {
         $textColor = $this->_getOption($options, 'text-color');
         if ($textColor) {
             $class[] = $textColor . '-text';
+        }
+
+        # Alignment
+        $align = $this->_getOption($options, 'align');
+        if ($align) {
+            $class[] = 'snackbar-' . $align;
+        }
+
+        # Multiline
+        $multiLine = $this->_getOption($options, 'multi-line');
+        if ($multiLine) {
+            $class[] = 'snackbar-multi-line';
         }
 
         # Get classes

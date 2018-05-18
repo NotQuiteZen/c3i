@@ -17,12 +17,26 @@ export default class Snackbar {
             html: '',
         });
 
+        // Generate the div
         let snackbar = this.generateSnackbarComponent(settings);
+
+        // Append it tot he body
         snackbar.appendTo(document.body);
-        snackbar.addClass('show');
 
-        if (settings.timeout !== 'Infinity') {
+        // Added the show class for the animation
+        // Delegation because
+        setTimeout(() => {
+            snackbar.addClass('show');
+        }, 1);
 
+        // Do we have a timeout?
+        if (settings.timeout !== 'Infinity' && !isNaN(settings.timeout)) {
+
+            // Set the timeout to remove the snackbar
+            setTimeout(() => {
+                snackbar.removeClass('show');
+                setTimeout(() => snackbar.remove(), 200);
+            }, settings.timeout);
         }
     }
 
@@ -37,9 +51,11 @@ export default class Snackbar {
         if (settings.classes) {
             snackbar.addClass(settings.classes);
         }
+
         if (settings.button) {
             snackbar.append(settings.button);
         }
+
         return snackbar.prepend(snackbarBody);
     }
 }

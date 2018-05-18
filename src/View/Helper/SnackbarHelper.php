@@ -34,13 +34,12 @@ class SnackbarHelper extends Helper {
     /**
      * @param string $return_type
      * Can be:
-     * 'array' => Will return the snackbars messages as an array
+     * 'array' => (default) Will return the snackbars messages as an array
      * 'window_variable' => Will output a <script> block with window.snackbar_messages contain the snackbar array
-     * 'auto_init' => Will output a <script> block and init Materialize snackbars with M.snackbar() for all snackbar messages;
      *
-     * @return mixed|string
+     * @return array|string
      */
-    public function render($return_type = 'auto_init') {
+    public function render($return_type = 'array') {
 
         # Read and delete the snackbar session
         $snackbars = $this->request->getSession()->consume($this->getConfig('session_key'));
@@ -51,11 +50,6 @@ class SnackbarHelper extends Helper {
 
         foreach ($snackbars as &$snackbar) {
             $snackbar['button'] = $this->_button($snackbar);
-        }
-
-        # Return the array
-        if ($return_type === 'array') {
-            return $snackbars;
         }
 
         # Setup the json bitmask
@@ -72,16 +66,7 @@ class SnackbarHelper extends Helper {
             return $this->Html->tag('script', "\nwindow.snackbar_messages" . " = " . $snackbars_object . ";\n");
         }
 
-        $script_content = [];
-        foreach ($snackbars as $snackbar) {
-            # Build the json object
-            $snackbars_object = json_encode($snackbar, $bitmask);
-            # Add M.snackbar() to the script content
-            $script_content[] = 'M.snackbar(' . $snackbars_object . ');';
-        }
-
-        # Return the script
-        return $this->Html->tag('script', "\n" . implode(null, $script_content));
+        return $snackbars;
     }
 
     private function _button($snackbar) {
