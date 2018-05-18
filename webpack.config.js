@@ -63,6 +63,7 @@ module.exports = (env) => {
                                 minimize: env.env !== 'dev',
                             },
                         },
+                        'postcss-loader',
                         "sass-loader",
                     ]
                 },
