@@ -87,6 +87,12 @@ class SnackbarComponent extends Component {
 
         # Multiline
         $multiLine = $this->_getOption($options, 'multi-line');
+
+        # No multiline in options? Check the message length
+        if (is_null($multiLine)) {
+            $multiLine = (bool) (strlen(strip_tags($message)) > 50);
+        }
+
         if ($multiLine) {
             $class[] = 'snackbar-multi-line';
         }
