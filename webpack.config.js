@@ -27,7 +27,7 @@ module.exports = (env) => {
         // },
 
         // Devtool
-        devtool: env.env === 'dev' ? 'eval-source-map' : 'source-map',
+        devtool: 'source-map',
 
         // Entries
         entry: WebpackWatchedGlobEntries.getEntries(path.resolve(__dirname, 'src', 'Assets', 'Entry', '**', '*.js'), {ignore: '**/Bootstrap.js'}),
