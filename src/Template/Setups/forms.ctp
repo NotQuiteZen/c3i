@@ -24,32 +24,49 @@
             <div class="card p-4">
                 <?php
 
-                echo $this->Form->create();
+                echo $this->Form->create('Form');
 
-                echo $this->Form->control('email', [
-                    'label' => 'E-mail address',
-                    'placeholder' => 'Enter e-mail',
-                    'help' => 'We\'ll never share your e-mail with anyone else.',
+                echo $this->Form->control('text', [
+                    'placeholder' => 'This is a text input',
+                    'help' => 'This is helper text',
                 ]);
 
                 echo $this->Form->control('password', [
                     'type' => 'password',
-                    'placeholder' => 'Password',
+                    'placeholder' => 'This is a password input',
+                    'help' => 'This is helper text',
                 ]);
 
                 echo $this->Form->control('checkbox', [
                     'type' => 'checkbox',
-                    'label' => 'Check me out',
+                    'label' => 'This is a checkbox',
                     'checked',
+                    'help' => 'This is helper text',
                 ]);
 
                 echo $this->Form->control('radio', [
                     'type' => 'radio',
                     'options' => ['Radio option 1', 'Radio option 2'],
                     'default' => 0,
+                    'help' => 'This is helper text',
+                ]);
+
+                echo $this->Form->control('select', [
+                    'type' => 'select',
+                    'options' => ['Select option 1', 'Select option 2'],
+                    'empty' => true,
+                    'help' => 'This is helper text',
+                ]);
+
+                echo $this->Form->control('textarea', [
+                    'type' => 'textarea',
+                    'placeholder' => 'This is a textarea',
+                    'help' => 'This is helper text',
                 ]);
 
                 echo $this->Form->submit('Submit');
+
+                echo $this->Form->end();
 
                 ?>
             </div>
