@@ -10,7 +10,7 @@
         "cakephp/plugin-installer": "^1.0",
         "josegonzalez/dotenv": "3.*",
         "mobiledetect/mobiledetectlib": "2.*",
-        "wrdx/cakephp-plugin-material": "^1.0"
+        "notquitezen/cakephp-plugin-material": "^1.0"
     },
     "require-dev": {
         "cakephp/bake": "^1.1",
