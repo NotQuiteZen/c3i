@@ -14,8 +14,8 @@ Development version:
 composer create-project -s dev notquitezen/c3i
 ```
 
-[travis-build]: https://api.travis-ci.org/notquitezen/c3i.svg?branch=master
-[travis-build-url]: https://travis-ci.org/notquitezen/c3i
+[travis-build]: https://api.travis-ci.org/NotQuiteZen/c3i.svg?branch=master
+[travis-build-url]: https://travis-ci.org/NotQuiteZen/c3i
 
 [latest-stable-version]: https://poser.pugx.org/notquitezen/c3i/v/stable
 [latest-stable-version-url]: https://packagist.org/packages/notquitezen/c3i
