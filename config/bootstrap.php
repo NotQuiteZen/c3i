@@ -217,4 +217,4 @@ if (Configure::read('debug')) {
 }
 
 # Load Material Plugin
-Plugin::load('Wrdx/Material');
+Plugin::load('NotQuiteZen/Material');
