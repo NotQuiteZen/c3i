@@ -1,6 +1,3 @@
-import $ from 'jquery';
-import _ from 'lodash-es';
-
 /**
  *
  */
@@ -12,16 +9,16 @@ export default class Snackbar {
      * @param settings_
      */
     static render(settings_) {
-        let settings = _.defaults(settings_, {
+        let settings = Object.assign({}, {
             timeout: 4000,
             html: '',
-        });
+        }, settings_);
 
         // Generate the div
         let snackbar = this.generateSnackbarComponent(settings);
 
-        // Append it tot he body
-        snackbar.appendTo(document.body);
+        // Append it to the body
+        document.body.appendChild(snackbar);
 
         // Added the show class for the animation
         // Delegation because
@@ -45,17 +42,36 @@ export default class Snackbar {
      * @returns {*}
      */
     static generateSnackbarComponent(settings) {
-        let snackbar = $('<div />').addClass('snackbar');
-        let snackbarBody = $('<div />').addClass('snackbar-body').html(settings.html);
 
+        // Create the main div
+        let snackbar = document.createElement('div');
+        snackbar.classList.add('snackbar');
+
+        // Snackbar classes
         if (settings.classes) {
-            snackbar.addClass(settings.classes);
+
+            // If we provided a string, make it iterable
+            if (typeof settings.classes === 'string') {
+                settings.classes = [settings.classes];
+            }
+
+            // Iterate the classes and add them
+            settings.classes.forEach(function (classname) {
+                snackbar.classList.add(classname);
+            });
         }
 
+        let snackbarBody = document.createElement('div');
+        snackbarBody.classList.add('snackbar-body');
+        snackbarBody.innerHTML = settings.html;
+
+        snackbar.appendChild(snackbarBody);
+
+        // Append the button
         if (settings.button) {
-            snackbar.append(settings.button);
+            snackbar.appendChild(settings.button);
         }
 
-        return snackbar.prepend(snackbarBody);
+        return snackbar;
     }
 }
