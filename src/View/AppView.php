@@ -2,7 +2,7 @@
 
 namespace App\View;
 
-use Wrdx\Material\View\MaterialView;
+use NotQuiteZen\Material\View\MaterialView;
 
 /**
  * Class AppView
