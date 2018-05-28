@@ -5,7 +5,6 @@
     "scripts": {
         "build": "webpack --progress",
         "build:no-progress": "webpack",
-        "build:dev": "yarn build --env.env=dev",
         "build:prod": "yarn build --env.env=prod",
         "watch": "yarn build --watch",
         "watch:dev": "yarn watch --env.env=dev",
