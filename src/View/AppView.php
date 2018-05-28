@@ -2,7 +2,7 @@
 
 namespace App\View;
 
-use NotQuiteZen\Material\View\MaterialView;
+use Material\View\MaterialView;
 
 /**
  * Class AppView

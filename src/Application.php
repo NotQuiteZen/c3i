@@ -31,6 +31,17 @@ class Application extends BaseApplication {
 
     public function bootstrap() {
         parent::bootstrap();
+
+        /*
+        * Only try to load DebugKit in development mode
+        * Debug Kit should not be installed on a production system
+        */
+        if (Configure::read('debug')) {
+            $this->addPlugin('DebugKit', ['bootstrap' => true, 'routes' => true]);
+        }
+
+        # Load Material Plugin
+        $this->addPlugin('Material');
     }
 
     /**

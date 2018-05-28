@@ -1,11 +1,11 @@
 // Get DefaultModule
-import {DefaultModule} from 'stein';
-import {Config} from '../Lib/Config';
+import { DefaultModule } from 'stein';
+import { Config } from '../Lib/Config';
 import * as Material from 'daemonite-material/js/material';
-import {each} from 'lodash-es';
+import { each } from 'lodash-es';
 import '../scss/app.scss';
 
-import {Snackbar} from 'daemonite-material-additions';
+import { Snackbar } from 'daemonite-material-additions';
 
 /**
  *

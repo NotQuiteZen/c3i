@@ -23,6 +23,10 @@ return [
         ],
     ],
 
+    'DebugKit' => [
+        'safeTld' => ['hw'],
+    ],
+
     /**
      * Security and encryption configuration
      *
