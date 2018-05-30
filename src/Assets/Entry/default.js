@@ -1,4 +1,4 @@
-import { Bootstrap } from 'Bootstrap/Bootstrap';
+import { Bootstrap } from '../Bootstrap/Bootstrap';
 
 class Default extends Bootstrap {
 

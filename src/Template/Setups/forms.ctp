@@ -64,6 +64,15 @@
                     'help' => 'This is helper text',
                 ]);
 
+                echo $this->Form->control('date', [
+                    'type' => 'text',
+                    'data-material-datepicker' => json_encode([
+                        'cancel' => 'Sluiten jonguh',
+                    ]),
+                    'placeholder' => 'This is a datepicker',
+                    'help' => 'This is helper text',
+                ]);
+
                 echo $this->Form->submit('Submit');
 
                 echo $this->Form->end();

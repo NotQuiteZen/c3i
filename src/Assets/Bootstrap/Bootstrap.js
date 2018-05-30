@@ -1,7 +1,8 @@
 // Get DefaultModule
 import { DefaultModule } from 'stein';
 import { Config } from '../Lib/Config';
-import * as Material from 'daemonite-material/js/material';
+import DaemoniteMaterialInitialize from 'daemonite-material-initializer';
+
 import { each } from 'lodash-es';
 import '../scss/app.scss';
 
@@ -26,6 +27,12 @@ export class Bootstrap extends DefaultModule {
         if (snackbars) {
             this.renderSnackbars(snackbars);
         }
+
+        let initModules = Object.assign({}, {
+            Datepicker: {}
+        }, modules);
+
+        this.DaemoniteMaterialInitialize = new DaemoniteMaterialInitialize(initModules);
     }
 
     renderSnackbars(snackbars) {

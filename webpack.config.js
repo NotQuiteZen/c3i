@@ -21,11 +21,6 @@ module.exports = (env) => {
 
     return {
 
-        // Watchoptions, enable this for running in vagrant
-        // watchOptions: {
-        //     poll: true,
-        // },
-
         // Devtool
         devtool: 'source-map',
 
@@ -43,9 +38,11 @@ module.exports = (env) => {
         // Mode
         mode: env.env === 'dev' ? 'development' : 'production',
 
-        // Resolve
         resolve: {
-            modules: [path.resolve(__dirname, 'vendor', 'node_modules'), path.resolve(__dirname, 'src', 'Assets'), 'node_modules'],
+            alias: {
+                'jquery': path.resolve(__dirname, 'node_modules', 'jquery'),
+                'daemonite-material': path.resolve(__dirname, 'node_modules', 'daemonite-material'),
+            },
         },
 
         // Module
@@ -109,7 +106,7 @@ module.exports = (env) => {
                     commons: {
                         name: "commons",
                         chunks: "all",
-                        minChunks: 2,
+                        minChunks: 1,
                         enforce: true
                     },
                 },
