@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
-use Cake\Core\Plugin;
 use Cake\Http\Exception\NotFoundException;
 use App\Form\TestForm;
 
