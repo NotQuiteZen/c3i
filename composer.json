@@ -6,9 +6,9 @@
     "require": {
         "php": ">=5.6.0",
         "cakephp/cakephp": "^3",
+        "cakephp/debug_kit": "^3.16",
         "cakephp/migrations": "^1.8.0",
         "cakephp/plugin-installer": "^1.0",
-        "cakephp/debug_kit": "master",
         "josegonzalez/dotenv": "3.*",
         "mobiledetect/mobiledetectlib": "2.*",
         "notquitezen/cakephp-plugin-material": "^1.0"
