@@ -25,7 +25,7 @@ module.exports = (env) => {
         devtool: 'source-map',
 
         // Entries
-        entry: WebpackWatchedGlobEntries.getEntries(path.resolve(__dirname, 'src', 'Assets', 'Entry', '**', '*.js'), {ignore: '**/Bootstrap.js'}),
+        entry: WebpackWatchedGlobEntries.getEntries(path.resolve(__dirname, 'src', 'Assets', 'Entry', '**', '*.js')),
 
         // Output
         output: {
