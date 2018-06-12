@@ -98,6 +98,7 @@ module.exports = (env) => {
                 chunks: "all",
                 cacheGroups: {
                     vendors: false,
+                    default: false,
                     style: {
                         test: /\.scss$|.css$/,
                         name: "commons",
