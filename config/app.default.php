@@ -24,7 +24,7 @@ return [
     ],
 
     'DebugKit' => [
-        'safeTld' => ['hw'],
+        'forceEnable' => true,
     ],
 
     /**
