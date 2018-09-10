@@ -20,7 +20,6 @@ if ( ! defined('STDIN')) {
 
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
-use Cake\Utility\Security;
 use Composer\IO\IOInterface;
 use Composer\Script\Event;
 use Exception;
@@ -115,12 +114,12 @@ class C3I {
     }
 
     /**
-     * @param $event Event
+     * @param Event $event
      *
+     * @return bool|int
      * @throws Exception
      */
-
-    public static function databaseSessions($event) {
+    public static function databaseSessions(Event $event) {
 
         $io = $event->getIO();
 
@@ -131,6 +130,14 @@ class C3I {
         require $rootDir . '/vendor/autoload.php';
         /** @noinspection PhpIncludeInspection */
         require $rootDir . '/config/bootstrap.php';
+
+        $appConfigFile = $rootDir . '/config/app.php';
+        $configContents = file_get_contents($appConfigFile);
+        if (strpos($configContents, '\'Datasources\' => []') !== false) {
+            $io->write('<comment>Skipping database sessions setup</comment>: No Datasources configured');
+
+            return static::_returnSleep();
+        }
 
         if (Configure::read('Session.defaults') !== 'php') {
             $io->write('<comment>Skipping database sessions</comment>: Seems like you\'re not using default php sessions');
@@ -178,7 +185,9 @@ class C3I {
     }
 
     /**
-     * @param $io IOInterface
+     * @param Event $event
+     *
+     * @return bool|int
      */
     public static function logo(Event $event) {
 
@@ -209,12 +218,14 @@ class C3I {
     }
 
     /**
-     * @param $io IOInterface
-     * @param $tag
-     * @param $replaceWith
-     * @param $file
+     * @param IOInterface $io
+     * @param             $tag
+     * @param             $replaceWith
+     * @param             $file
+     *
+     * @return bool|int
      */
-    private static function _replaceTagInFile($io, $tag, $replaceWith, $file) {
+    private static function _replaceTagInFile(IOInterface $io, $tag, $replaceWith, $file) {
         $content = file_get_contents($file);
         $content = str_replace($tag, $replaceWith, $content, $count);
 
@@ -231,6 +242,8 @@ class C3I {
             return static::_returnSleep();
         }
         $io->write('Unable to update ' . $tag . ' value.');
+
+        return true;
     }
 
     /**
@@ -247,8 +260,6 @@ class C3I {
     }
 
     /**
-     * Returns a not empty check function
-     *
      * @return \Closure
      */
     private static function _notEmptyValidator() {
@@ -261,7 +272,7 @@ class C3I {
     }
 
     /**
-     * @return int
+     * @return int|bool
      */
     private static function _returnSleep() {
         return sleep(1);
