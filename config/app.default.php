@@ -108,41 +108,7 @@ return [
         ],
     ],
 
-    'Datasources' => [
-        'default' => [
-            'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\Mysql',
-            'persistent' => false,
-            'host' => 'localhost',
-            'username' => '__DATABASE_USER__',
-            'password' => '__DATABASE_PASSWORD__',
-            'database' => '__DATABASE_NAME__',
-            'timezone' => 'UTC',
-            'flags' => [],
-            'cacheMetadata' => true,
-            'log' => false,
-            'quoteIdentifiers' => false,
-            'url' => env('DATABASE_URL', null),
-        ],
-
-        /**
-         * The test connection is used during the test suite.
-         */
-        'test' => [
-            'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\Mysql',
-            'persistent' => false,
-            'host' => 'localhost',
-            'username' => 'my_app',
-            'password' => 'secret',
-            'database' => 'test_c3i',
-            'timezone' => 'UTC',
-            'cacheMetadata' => true,
-            'quoteIdentifiers' => false,
-            'log' => false,
-            'url' => env('DATABASE_TEST_URL', null),
-        ],
-    ],
+    'Datasources' => [],
 
     /**
      * Configures logging options

@@ -109,10 +109,9 @@ class C3I {
             return static::_returnSleep();
         }
 
-        # Replace the user, password and name in the app.php
-        static::_replaceTagInFile($io, '__DATABASE_USER__', $databaseUser, $appConfigFile);
-        static::_replaceTagInFile($io, '__DATABASE_PASSWORD__', $databasePassword, $appConfigFile);
-        static::_replaceTagInFile($io, '__DATABASE_NAME__', $databaseName, $appConfigFile);
+        # Write to app.php
+        $template = "'Datasources' => [\n        'default' => [\n            'className' => 'Cake\Database\Connection',\n            'driver' => 'Cake\Database\Driver\Mysql',\n            'persistent' => false,\n            'host' => 'localhost',\n            'username' => '__DATABASE_USER__',\n            'password' => '__DATABASE_PASSWORD__',\n            'database' => '__DATABASE_NAME__',\n            'timezone' => 'UTC',\n            'flags' => [],\n            'cacheMetadata' => true,\n            'log' => false,\n            'quoteIdentifiers' => false,\n            'url' => env('DATABASE_URL', null),\n        ],\n    ],";
+        static::_replaceTagInFile($io, ''Datasources' => [],', $template, $appConfigFile);
 
         return static::_returnSleep();
     }
