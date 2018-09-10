@@ -2,7 +2,6 @@
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
@@ -27,7 +26,6 @@ use Composer\Script\Event;
 use Exception;
 
 class C3I {
-
 
     /**
      * Does some routine installation tasks so people don't have to.
@@ -54,8 +52,8 @@ class C3I {
 
         $configContents = file_get_contents($appConfigFile);
 
-        if (strpos($configContents, '__DATABASE_USER__') === false) {
-            $io->write('<comment>Skipping database setup</comment>: No database tags found in ' . $appConfigFile);
+        if (strpos($configContents, '\'Datasources\' => [],') === false) {
+            $io->write('<comment>Skipping database setup</comment>: No Datasources key found in ' . $appConfigFile);
 
             return static::_returnSleep();
         }
@@ -110,12 +108,11 @@ class C3I {
         }
 
         # Write to app.php
-        $template = "'Datasources' => [\n        'default' => [\n            'className' => 'Cake\Database\Connection',\n            'driver' => 'Cake\Database\Driver\Mysql',\n            'persistent' => false,\n            'host' => 'localhost',\n            'username' => '__DATABASE_USER__',\n            'password' => '__DATABASE_PASSWORD__',\n            'database' => '__DATABASE_NAME__',\n            'timezone' => 'UTC',\n            'flags' => [],\n            'cacheMetadata' => true,\n            'log' => false,\n            'quoteIdentifiers' => false,\n            'url' => env('DATABASE_URL', null),\n        ],\n    ],";
-        static::_replaceTagInFile($io, ''Datasources' => [],', $template, $appConfigFile);
+        $template = "'Datasources' => [\n        'default' => [\n            'className' => 'Cake\Database\Connection',\n            'driver' => 'Cake\Database\Driver\Mysql',\n            'persistent' => false,\n            'host' => 'localhost',\n            'username' => '$databaseUser',\n            'password' => '$databasePassword',\n            'database' => '$databaseName',\n            'timezone' => 'UTC',\n            'flags' => [],\n            'cacheMetadata' => true,\n            'log' => false,\n            'quoteIdentifiers' => false,\n            'url' => env('DATABASE_URL', null),\n        ],\n    ],";
+        static::_replaceTagInFile($io, '\'Datasources\' => [],', $template, $appConfigFile);
 
         return static::_returnSleep();
     }
-
 
     /**
      * @param $event Event
@@ -236,7 +233,6 @@ class C3I {
         $io->write('Unable to update ' . $tag . ' value.');
     }
 
-
     /**
      * @return \Closure
      */
@@ -250,9 +246,9 @@ class C3I {
         };
     }
 
-
     /**
      * Returns a not empty check function
+     *
      * @return \Closure
      */
     private static function _notEmptyValidator() {
@@ -263,7 +259,6 @@ class C3I {
             throw new Exception('Invalid input received, please insert a non-empty string');
         };
     }
-
 
     /**
      * @return int
