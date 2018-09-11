@@ -32,6 +32,7 @@
         "webpack-watched-glob-entries-plugin": "^2.1.2"
     },
     "dependencies": {
+        "bootstrap": "^4.1.3",
         "daemonite-material": "^4.1.1",
         "daemonite-material-additions": "^1.0.2",
         "daemonite-material-initializer": "^1.0.0",
@@ -39,6 +40,7 @@
         "lodash-es": "^4.17.8",
         "material-design-icons-iconfont-only": "^3.0.1",
         "pickadate": "^3.5.6",
+        "popper.js": "^1.14.4",
         "roboto-fontface": "^0.9.0",
         "stein": "^1.0.5"
     },

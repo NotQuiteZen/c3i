@@ -2,7 +2,7 @@
 import { DefaultModule } from 'stein';
 import { Config } from '../Lib/Config';
 import DaemoniteMaterialInitialize from 'daemonite-material-initializer';
-
+import 'bootstrap';
 import { each } from 'lodash-es';
 import '../scss/app.scss';
 
